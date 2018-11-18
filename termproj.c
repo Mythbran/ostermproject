@@ -6,6 +6,22 @@
 /*THE BUFFER */
 buffer_item buffer[SIZE];
 
+//PROTOTYPES 
+int insert_item(buffer_item item);
+int remove_item(buffer_item *item);
+void *producer(void *param);
+void *consumer(void *param);
+
+int main(int argc, char *argv[]){
+	//GET COMMAND LINE ARGUMENTS
+	//initialize buffer 
+	//create producer thread(s)
+	//create consumer thread(s)
+	//sleep 
+	//EXIT
+}
+
+
 int insert_item(buffer_item item){
 	//INSERT ITEM INTO THE BUFFER 
 	//return 0 if succesfull, 
@@ -17,15 +33,6 @@ int remove_item(buffer_item *item){
 	//placing it into item 
 	//return 0 if successful 
 	//return -1 if unsuccessful 
-}
-
-int main(int argc, char *argv[]){
-	//GET COMMAND LINE ARGUMENTS
-	//initialize buffer 
-	//create producer thread(s)
-	//create consumer thread(s)
-	//sleep 
-	//EXIT
 }
 
 void *producer(void *param){
