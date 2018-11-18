@@ -1,22 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h> 
-#include <buffer.h>
-
-//HEADER
-typedef int buffer_item; 
-#define BUFFER_SIZE 5; 
+#include "buffer.h"
 
 /*THE BUFFER */
-buffer_item buffer[BUFFER_SIZE];
+buffer_item buffer[SIZE];
 
-int insert item (buffer_item item){
+int insert_item(buffer_item item){
 	//INSERT ITEM INTO THE BUFFER 
 	//return 0 if succesfull, 
 	//return -1 if unsuccessful 
 }
 
-int remove item(buffer_item *item){
+int remove_item(buffer_item *item){
 	//remove an object from buffer 
 	//placing it into item 
 	//return 0 if successful 
@@ -35,7 +31,7 @@ int main(int argc, char *argv[]){
 void *producer(void *param){
 	buffer_item item; 
 
-	while(true){
+	while(1){
 		//sleep for a random period of time 
 		//sleep(...);
 		//generate a random number
@@ -51,7 +47,7 @@ void *producer(void *param){
 void *consumer(void *param){
 	//buffer_item item; 
 
-	while(true){
+	while(1){
 		//sleep for random period of time 
 		//sleep(...);
 		//if (remove item(&item))
