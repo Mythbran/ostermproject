@@ -1,3 +1,11 @@
+/*
+Gurbir Matharu
+Matthew D'Angelo
+
+SYST44288
+Final Project
+ */
+
 typedef int buffer_item; 
 #define BUFFER_SIZE 5
 int in = 0;
