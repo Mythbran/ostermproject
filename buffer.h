@@ -31,9 +31,9 @@ int remove_item(buffer_item *item){
 		return -1;
 	}
 
-	printf("item %d\n", buffer[out]);
+	//printf("item %d\n", buffer[out]);
 
-	item = buffer[out];
+	*item = buffer[out];
 	out = (out+1) %BUFFER_SIZE;
 	return 0; 
 
