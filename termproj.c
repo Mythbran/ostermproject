@@ -6,7 +6,6 @@
 #include "buffer.h"
 
 /*global variables*/
-buffer_item buffer[BUFFER_SIZE];
 pthread_mutex_t mutex;
 sem_t empty, full;
 int counter,insert_p,remove_p;
@@ -14,8 +13,6 @@ int counter,insert_p,remove_p;
 #define true 1
 
 //PROTOTYPES 
-int insert_item(buffer_item item);
-int remove_item(buffer_item *item);
 void *producer(void *param);
 void *consumer(void *param);
 
@@ -23,7 +20,7 @@ int main(int argc, char *argv[]){
 	int sleep_time, producer_arg, consumer_arg, i;
 	/*error checking to make sure only 3 command line inputs are provided*/
 	if (argc != 4){
-    	printf("3 inputs needed, program will exit, try again");
+    	printf("3 inputs needed, program will exit, try again\n");
     	exit(1);
 	}
 
@@ -56,20 +53,6 @@ int main(int argc, char *argv[]){
 	exit(1);
 }
 
-
-int insert_item(buffer_item item){
-	//INSERT ITEM INTO THE BUFFER 
-	//return 0 if succesfull, 
-	//return -1 if unsuccessful 
-}
-
-int remove_item(buffer_item *item){
-	//remove an object from buffer 
-	//placing it into item 
-	//return 0 if successful 
-	//return -1 if unsuccessful 
-}
-
 void *producer(void *param){
 	buffer_item item;
 	int random_sleep;
@@ -80,8 +63,8 @@ void *producer(void *param){
 
 			/* generate a random number */
 			item = rand();
-				if (insert_item(item))
-					printf("report error condition");
+				if (insert_item(item)== -1)
+					printf("report error condition\n");
 				else
 					printf("producer produced %d\n",item);
 		}
@@ -95,8 +78,8 @@ void *consumer(void *param){
 			random_sleep = (rand() % 5 + 1); // sleep time wasn't given, using 1-10 so it isn't too long
 			sleep(random_sleep);
 
-			if (remove_item(&item))
-				printf("report error condition");
+			if (remove_item(&item)!= -1)
+				printf("consumer consumed %d\n",item);
 			else
 				printf("consumer consumed %d\n",item);
 		}
