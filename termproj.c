@@ -1,3 +1,11 @@
+/*
+Gurbir Matharu
+Matthew D'Angelo
+
+SYST44288
+Final Project
+ */
+
 #include <stdlib.h> /* required for rand() */
 #include <stdio.h>
 #include <pthread.h>
