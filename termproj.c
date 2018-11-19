@@ -1,10 +1,17 @@
+#include <stdlib.h> /* required for rand() */
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h> 
+#include <pthread.h>
+#include <semaphore.h>
+#include <unistd.h> /* required for sleep */
 #include "buffer.h"
 
-/*THE BUFFER */
-buffer_item buffer[SIZE];
+/*global variables*/
+buffer_item buffer[BUFFER_SIZE];
+pthread_mutex_t mutex;
+sem_t empty, full;
+int counter,insert_p,remove_p;
+
+#define true 1
 
 //PROTOTYPES 
 int insert_item(buffer_item item);
@@ -64,33 +71,33 @@ int remove_item(buffer_item *item){
 }
 
 void *producer(void *param){
-	buffer_item item; 
+	buffer_item item;
+	int random_sleep;
+		while (true) {
+			/* sleep for a random period of time */
+			random_sleep = (rand() % 5 + 1); // sleep time wasn't given, using 1-10 so it isn't too long
+			sleep(random_sleep);
 
-	while(1){
-		//sleep for a random period of time 
-		//sleep(...);
-		//generate a random number
-		//item = rand():
-		//if(inser item(item))
-			//print error
-		//else
-			//print item 
-			//printf("producer produced %d\n", item);
+			/* generate a random number */
+			item = rand();
+				if (insert_item(item))
+					printf("report error condition");
+				else
+					printf("producer produced %d\n",item);
+		}
 	}
-}
 
 void *consumer(void *param){
-	//buffer_item item; 
+	buffer_item item;
+	int random_sleep;
+		while (true) {
+			/* sleep for a random period of time */
+			random_sleep = (rand() % 5 + 1); // sleep time wasn't given, using 1-10 so it isn't too long
+			sleep(random_sleep);
 
-	while(1){
-		//sleep for random period of time 
-		//sleep(...);
-		//if (remove item(&item))
-			//fprintf("report error condition"):
-		//else
-			//printf("consumer consumer %d\n", item);
-
-
+			if (remove_item(&item))
+				printf("report error condition");
+			else
+				printf("consumer consumed %d\n",item);
+		}
 	}
-
-}
