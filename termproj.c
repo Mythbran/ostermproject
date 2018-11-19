@@ -18,6 +18,7 @@ pthread_mutex_t mutex;
 sem_t empty, full;
 
 
+
 #define true 1
 
 //PROTOTYPES 
@@ -40,7 +41,8 @@ int main(int argc, char *argv[]){
 	/* 2. Initialize buffer */
 	srand(time(NULL));
   	pthread_mutex_init(&mutex, NULL);
-  	sem_init(&empty, 0, BUFFER_SIZE); 
+  	if((sem_init(&empty, 0, BUFFER_SIZE))==-1)
+  		fprintf(stderr, "An error has occured"); 
 	sem_init(&full, 0, 0);
 
 	/* 3. Create producer thread(s) */
@@ -69,13 +71,15 @@ void *producer(void *param){
 			sleep(random_sleep);
 
 			/* generate a random number */
-			pthread_mutex_lock(&mutex);
 			item = rand();
+			sem_wait(&empty);
+			pthread_mutex_lock(&mutex);
 				if (insert_item(item)== -1)
 					printf("report error condition\n");
 				else
 					printf("producer produced %d\n",item);
 			pthread_mutex_unlock(&mutex);	
+			sem_post(&full);
 		}
 	}
 
@@ -86,11 +90,13 @@ void *consumer(void *param){
 			/* sleep for a random period of time */
 			random_sleep = (rand() % 5 + 1); // sleep time wasn't given, using 1-10 so it isn't too long
 			sleep(random_sleep);
+			sem_wait(&full);
 			pthread_mutex_lock(&mutex);
 			if (remove_item(&item)== 0)
 				printf("consumer consumed %d\n",item);
 			else
 				printf("error");
 			pthread_mutex_unlock(&mutex);
+			sem_post(&empty);
 		}
 	}
