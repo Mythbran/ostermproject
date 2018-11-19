@@ -57,7 +57,7 @@ int main(int argc, char *argv[]){
 	sleep(sleep_time);
 	/* 6. Exit */
 	return 0;
-	exit(1);
+	exit(0);
 }
 
 void *producer(void *param){
@@ -69,11 +69,13 @@ void *producer(void *param){
 			sleep(random_sleep);
 
 			/* generate a random number */
+			pthread_mutex_lock(&mutex);
 			item = rand();
 				if (insert_item(item)== -1)
 					printf("report error condition\n");
 				else
 					printf("producer produced %d\n",item);
+			pthread_mutex_unlock(&mutex);	
 		}
 	}
 
@@ -84,10 +86,11 @@ void *consumer(void *param){
 			/* sleep for a random period of time */
 			random_sleep = (rand() % 5 + 1); // sleep time wasn't given, using 1-10 so it isn't too long
 			sleep(random_sleep);
-
-			if (remove_item(&item)!= -1)
+			pthread_mutex_lock(&mutex);
+			if (remove_item(&item)== 0)
 				printf("consumer consumed %d\n",item);
 			else
-				printf("consumer consumed %d\n",item);
+				printf("error");
+			pthread_mutex_unlock(&mutex);
 		}
 	}
