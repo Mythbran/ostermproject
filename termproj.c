@@ -63,7 +63,6 @@ int main(int argc, char *argv[]){
 	for(i = 0; i < producer_arg; i++)
 		pthread_create(&producer_x[i], NULL, producer, NULL);
 	/* 4. Create consumer thread(s) */
-		
 		pthread_t consumer_x[consumer_arg];
   	for(i = 0; i < consumer_arg; i++)
 		pthread_create(&consumer_x[i], NULL, consumer, NULL);
