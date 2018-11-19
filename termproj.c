@@ -1,3 +1,11 @@
+/*
+Gurbir Matharu
+Matthew D'Angelo
+
+SYST44288
+Final Project
+ */
+
 #include <stdlib.h> /* required for rand() */
 #include <stdio.h>
 #include <pthread.h>
@@ -8,13 +16,27 @@
 /*global variables*/
 pthread_mutex_t mutex;
 sem_t empty, full;
-int counter,insert_p,remove_p;
+
 
 #define true 1
 
 //PROTOTYPES 
 void *producer(void *param);
 void *consumer(void *param);
+
+
+int insert_item(buffer_item item){
+	//INSERT ITEM INTO THE BUFFER 
+	//return 0 if succesfull, 
+	//return -1 if unsuccessful 
+}
+
+int remove_item(buffer_item *item){
+	//remove an object from buffer 
+	//placing it into item 
+	//return 0 if successful 
+	//return -1 if unsuccessful 
+}
 
 int main(int argc, char *argv[]){
 	int sleep_time, producer_arg, consumer_arg, i;
@@ -40,7 +62,6 @@ int main(int argc, char *argv[]){
 	for(i = 0; i < producer_arg; i++)
 		pthread_create(&producer_x[i], NULL, producer, NULL);
 	/* 4. Create consumer thread(s) */
-		
 		pthread_t consumer_x[consumer_arg];
   	for(i = 0; i < consumer_arg; i++)
 		pthread_create(&consumer_x[i], NULL, consumer, NULL);
