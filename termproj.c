@@ -9,7 +9,7 @@
 buffer_item buffer[BUFFER_SIZE];
 pthread_mutex_t mutex;
 sem_t empty, full;
-int counter,insert_p,remove_p;
+
 
 #define true 1
 
