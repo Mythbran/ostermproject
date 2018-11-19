@@ -24,20 +24,6 @@ sem_t empty, full;
 void *producer(void *param);
 void *consumer(void *param);
 
-
-int insert_item(buffer_item item){
-	//INSERT ITEM INTO THE BUFFER 
-	//return 0 if succesfull, 
-	//return -1 if unsuccessful 
-}
-
-int remove_item(buffer_item *item){
-	//remove an object from buffer 
-	//placing it into item 
-	//return 0 if successful 
-	//return -1 if unsuccessful 
-}
-
 int main(int argc, char *argv[]){
 	int sleep_time, producer_arg, consumer_arg, i;
 	/*error checking to make sure only 3 command line inputs are provided*/
